@@ -7,11 +7,13 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { MediaProvider } from '../providers/media/media';
+import {ThumbnailPipe} from "../pipes/thumbnail/thumbnail";
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    ThumbnailPipe
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,8 @@ import { MediaProvider } from '../providers/media/media';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    MediaProvider
+    MediaProvider,
+    ThumbnailPipe
   ]
 })
 export class AppModule {}

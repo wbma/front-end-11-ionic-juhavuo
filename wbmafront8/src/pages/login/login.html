@@ -15,4 +15,12 @@
 
 <ion-content padding>
 
+  <p>Login time:</p>
+  <br>
+  <input type="text" [(ngModel)]="mediaProvider.username">
+  <br>
+  <input type="password" [(ngModel)]="mediaProvider.password">
+  <br>
+  <button (click)="mediaProvider.login()">Logging in to the server</button>
+
 </ion-content>

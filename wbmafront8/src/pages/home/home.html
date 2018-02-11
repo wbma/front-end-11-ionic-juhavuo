@@ -7,8 +7,14 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+ <p>jees</p>
+
+  <ul>
+    <li *ngFor = "let imagefile of imagefiles">
+      <h3>Title: {{imagefile.title}}</h3>
+      <p>Description: {{imagefile.description}}</p>
+      <img [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + (imagefile?.filename | thumbnail: 'small')"/>
+    </li>
+  </ul>
+
 </ion-content>
