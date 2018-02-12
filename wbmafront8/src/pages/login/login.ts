@@ -24,7 +24,7 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
     if (localStorage.getItem('token') !== null) {
       this.mediaProvider.getUserData().subscribe(response => {
-        // this.router.navigate(['front']);
+        this.navCtrl.pop();
         console.log(this.mediaProvider.status);
       }, (error: HttpErrorResponse) => {
         console.log(error);

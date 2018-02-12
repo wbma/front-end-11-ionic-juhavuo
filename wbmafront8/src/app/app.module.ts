@@ -8,21 +8,30 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { MediaProvider } from '../providers/media/media';
 import {ThumbnailPipe} from "../pipes/thumbnail/thumbnail";
+import {LoginPage} from "../pages/login/login";
+import {RegistrationPage} from "../pages/registration/registration";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
+    LoginPage,
+    RegistrationPage,
     ThumbnailPipe
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    LoginPage,
+    RegistrationPage
   ],
   providers: [
     StatusBar,
