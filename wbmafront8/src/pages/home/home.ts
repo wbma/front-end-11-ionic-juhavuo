@@ -4,6 +4,7 @@ import {Imagefile} from "../../models/Imagefile";
 import { MediaProvider} from "../../providers/media/media";
 import {HttpErrorResponse} from "@angular/common/http";
 import {LoginPage} from "../login/login";
+import {UploadPage} from "../upload/upload";
 
 @Component({
   selector: 'page-home',
@@ -61,5 +62,15 @@ export class HomePage {
     } else {
       this.navCtrl.push(LoginPage);
     }
+  }
+
+  loggingout(){
+
+    localStorage.removeItem('token');
+    this.navCtrl.push(LoginPage);
+  }
+
+  toUppload(){
+    this.navCtrl.push(UploadPage);
   }
 }

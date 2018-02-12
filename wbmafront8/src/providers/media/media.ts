@@ -3,6 +3,8 @@ import{ HttpHeaders} from "@angular/common/http";
 import { HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from '@angular/core';
 import { User } from "../../models/User";
+import {NavController} from "ionic-angular";
+import {LoginPage} from "../../pages/login/login";
 
 /*
   Generated class for the MediaProvider provider.
@@ -50,7 +52,6 @@ export class MediaProvider {
       console.log(this.password);
       console.log(response['token']);
       localStorage.setItem('token', response['token']);
-      //this.router.navigate(['front']);
     }, (error: HttpErrorResponse) => {
       console.log(error);
       this.status = error.message;
@@ -68,11 +69,12 @@ export class MediaProvider {
     return this.http.get(this.apiUrl + '/users/user', this.settingsX);
   }
 
+  /*
   logout() {
 
     localStorage.removeItem('token');
-    //this.router.navigate(['login']);
-  }
+    this.navCtrl.push(LoginPage);
+  }*/
 
   public register(user: User) {
 

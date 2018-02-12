@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {MediaProvider} from "../../providers/media/media";
 import {HttpErrorResponse} from "@angular/common/http";
+import {HomePage} from "../home/home";
 
 /**
  * Generated class for the LoginPage page.
@@ -17,18 +18,33 @@ import {HttpErrorResponse} from "@angular/common/http";
 })
 export class LoginPage {
 
+  inStack = ['initial'];
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public mediaProvider: MediaProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
-    if (localStorage.getItem('token') !== null) {
+  }
+
+  loggingin(){
+    this.mediaProvider.login();
       this.mediaProvider.getUserData().subscribe(response => {
-        this.navCtrl.pop();
+        this.navCtrl.setRoot(HomePage);
         console.log(this.mediaProvider.status);
       }, (error: HttpErrorResponse) => {
         console.log(error);
       });
+  }
+
+
+
+  showStack(){
+    for ( let i=0; i < this.navCtrl.length(); i++ )
+    {
+      let v = this.navCtrl.getViews()[i];
+      console.log(v.component.name);
+
     }
   }
 

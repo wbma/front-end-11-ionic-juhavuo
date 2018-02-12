@@ -1,13 +1,14 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      It is time for wbma photo streak!!!
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
- <p>jees</p>
+  <button (click)="loggingout()">Log out</button>
+  <button (click)="toUppload()">Upload photos</button>
 
   <ul>
     <li *ngFor = "let imagefile of imagefiles">
