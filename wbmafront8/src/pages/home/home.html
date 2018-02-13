@@ -9,13 +9,14 @@
 <ion-content padding>
   <button (click)="loggingout()">Log out</button>
   <button (click)="toUppload()">Upload photos</button>
-
-  <ul>
-    <li *ngFor = "let imagefile of imagefiles">
-      <h3>Title: {{imagefile.title}}</h3>
-      <p>Description: {{imagefile.description}}</p>
-      <img [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + (imagefile?.filename | thumbnail: 'small')"/>
-    </li>
+  <div id="flextime">
+    <ul>
+      <li *ngFor = "let imagefile of imagefiles">
+        <h3>Title: {{imagefile.title}}</h3>
+        <p>Description: {{imagefile.description}}</p>
+        <img [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + (imagefile?.filename | thumbnail: 'small')"/>
+      </li>
   </ul>
+  </div>
 
 </ion-content>
