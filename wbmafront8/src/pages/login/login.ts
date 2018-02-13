@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {MediaProvider} from "../../providers/media/media";
 import {HttpErrorResponse} from "@angular/common/http";
 import {HomePage} from "../home/home";
+import {RegistrationPage} from "../registration/registration";
 
 /**
  * Generated class for the LoginPage page.
@@ -30,7 +31,7 @@ export class LoginPage {
   loggingin(){
     this.mediaProvider.login();
       this.mediaProvider.getUserData().subscribe(response => {
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.pop();
         console.log(this.mediaProvider.status);
       }, (error: HttpErrorResponse) => {
         console.log(error);
@@ -46,6 +47,10 @@ export class LoginPage {
       console.log(v.component.name);
 
     }
+  }
+
+  goToRegistration(){
+    this.navCtrl.push(RegistrationPage);
   }
 
 }

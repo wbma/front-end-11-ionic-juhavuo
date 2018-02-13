@@ -56,8 +56,9 @@ export class UploadPage {
     console.log(this.imagefile.title);
     console.log(this.imagefile.description);
     this.mediaProvider.uploadFile(formData).subscribe(response => {
-      console.log(response);
-      alert(response.toString());
+      this.navCtrl.popToRoot();
+    }, (error) => {
+      alert('Something went wrong!!!');
     });
   }
 

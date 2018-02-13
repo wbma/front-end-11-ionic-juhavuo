@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { User } from "../../models/User";
 import {MediaProvider} from "../../providers/media/media";
+import {HomePage} from "../home/home";
 
 /**
  * Generated class for the RegistrationPage page.
@@ -36,6 +37,9 @@ export class RegistrationPage {
       this.mediaProvider.username = this.user.username;
       this.mediaProvider.password = this.user.password;
       this.mediaProvider.login();
+      this.navCtrl.popToRoot();
+    },(error) =>{
+      console.log(error);
     });
   }
 
