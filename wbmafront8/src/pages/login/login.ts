@@ -31,7 +31,7 @@ export class LoginPage {
   loggingin(){
     this.mediaProvider.login();
       this.mediaProvider.getUserData().subscribe(response => {
-        this.navCtrl.pop();
+        this.navCtrl.setRoot(HomePage);
         console.log(this.mediaProvider.status);
       }, (error: HttpErrorResponse) => {
         console.log(error);
