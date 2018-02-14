@@ -12,6 +12,10 @@ import {UploadPage} from "../upload/upload";
 })
 export class HomePage {
 
+  startingPoint = 0;
+  photosPerView = 10;
+  addingtime = '';
+
   imagefile: Imagefile = {
     file_id: 0,
     filename: '',
@@ -36,7 +40,7 @@ export class HomePage {
     if (localStorage.getItem('token') !== null) {
       this.mediaProvider.getUserData().subscribe(response => {
         console.log('Welcome ' + response ['full_name']);
-        this.mediaProvider.getNewMediaFiles(0, 10).subscribe(response2 => {
+        this.mediaProvider.getNewMediaFiles(0, this.photosPerView).subscribe(response2 => {
           console.log(response2);
           if (response2 !== undefined || response2 !== null) {
             this.imagefiles = response2;
@@ -73,4 +77,22 @@ export class HomePage {
   toUppload(){
     this.navCtrl.push(UploadPage);
   }
+
+  viewNextPhotos() {
+    this.startingPoint += this.photosPerView;
+    this.mediaProvider.getNewMediaFiles(this.startingPoint,this.photosPerView).subscribe(response3 => {
+      this.imagefiles = response3;
+    });
+  }
+
+  viewPreviousPhotos() {
+    if(this.startingPoint-this.photosPerView >= 0){
+      this.startingPoint -= this.photosPerView;
+      this.mediaProvider.getNewMediaFiles(this.startingPoint,this.photosPerView).subscribe( response3 => {
+        this.imagefiles = response3;
+      });
+    }
+  }
 }
+
+

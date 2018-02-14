@@ -15,8 +15,11 @@
         <h3>Title: {{imagefile.title}}</h3>
         <p>Description: {{imagefile.description}}</p>
         <img [src]="'http://media.mw.metropolia.fi/wbma/uploads/' + (imagefile?.filename | thumbnail: 'small')"/>
+        <p>Time added: {{imagefile.time_added}}</p>
       </li>
   </ul>
+    <button (click)="viewPreviousPhotos()">Previous</button>
+    <button (click)="viewNextPhotos()">Next</button>
   </div>
 
 </ion-content>
