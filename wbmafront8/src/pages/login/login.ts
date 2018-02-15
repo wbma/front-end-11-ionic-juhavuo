@@ -32,7 +32,6 @@ export class LoginPage {
     this.mediaProvider.login();
       this.mediaProvider.getUserData().subscribe(response => {
         this.navCtrl.setRoot(HomePage);
-        console.log(this.mediaProvider.status);
       }, (error: HttpErrorResponse) => {
         console.log(error);
       });

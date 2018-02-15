@@ -86,7 +86,7 @@ export class MediaProvider {
   }
 
   public getAllMediaFiles(){
-    return this.http.get(this.apiUrl + 'media/all', this.settingsX);
+    return this.http.get(this.apiUrl + '/media/all', this.settingsX);
   }
 
 }

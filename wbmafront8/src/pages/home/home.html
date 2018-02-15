@@ -7,8 +7,14 @@
 </ion-header>
 
 <ion-content padding>
-  <button (click)="loggingout()">Log out</button>
-  <button (click)="toUppload()">Upload photos</button>
+  <p><button (click)="loggingout()">Log out</button>
+    <button (click)="toUppload()">Upload photos</button>
+    Logged in as: {{userName}}</p>
+  <p>Showing {{startingPoint}} -  {{lastOfPage}}/{{filecount}}</p>
+  <p><button (click)="goToFirstSet()">To first ones</button>
+    <button (click)="viewPreviousPhotos()">Previous</button>
+  <button (click)="viewNextPhotos()">Next</button>
+  <button (click)="goToLastSet()">To last ones</button> </p>
   <div id="flextime">
     <ul>
       <li *ngFor = "let imagefile of imagefiles">
@@ -18,8 +24,5 @@
         <p>Time added: {{imagefile.time_added}}</p>
       </li>
   </ul>
-    <button (click)="viewPreviousPhotos()">Previous</button>
-    <button (click)="viewNextPhotos()">Next</button>
   </div>
-
 </ion-content>

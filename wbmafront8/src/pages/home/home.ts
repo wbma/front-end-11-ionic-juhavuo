@@ -5,6 +5,7 @@ import { MediaProvider} from "../../providers/media/media";
 import {HttpErrorResponse} from "@angular/common/http";
 import {LoginPage} from "../login/login";
 import {UploadPage} from "../upload/upload";
+import {Mediaquery} from "../../models/Mediaquery";
 
 @Component({
   selector: 'page-home',
@@ -14,7 +15,9 @@ export class HomePage {
 
   startingPoint = 0;
   photosPerView = 10;
+  lastOfPage = this.photosPerView-1;
   addingtime = '';
+  userName = '';
 
   imagefile: Imagefile = {
     file_id: 0,
@@ -28,7 +31,18 @@ export class HomePage {
     time_added: ''
   };
 
+  mediaquery: Mediaquery = {
+    "file_count" : {
+      "total": 0,
+      "image": 0,
+      "video": 0,
+      "audio": 0
+}
+  }
+
   imagefiles: any;
+  query: any;
+  filecount: 0;
   baseurl = ' http://media.mw.metropolia.fi/wbma/uploads/';
   srcforimage = this.baseurl;
 
@@ -36,23 +50,25 @@ export class HomePage {
 
   }
 
-  ngOnInit() {
+  ionViewDidLoad() {
     if (localStorage.getItem('token') !== null) {
+      //get the userdata
       this.mediaProvider.getUserData().subscribe(response => {
-        console.log('Welcome ' + response ['full_name']);
+        this.userName = response ['username'];
+        //find the first files
         this.mediaProvider.getNewMediaFiles(0, this.photosPerView).subscribe(response2 => {
           console.log(response2);
           if (response2 !== undefined || response2 !== null) {
             this.imagefiles = response2;
-            /*
-            if (this.imagefiles !== null) {
-              this.arrayLength = this.imagefiles.length;
-              let i = 0;
-              for (i = 0; (i < this.arrayLength) && (i < 10); ++i) {
-                this.textToPrint += this.imagefiles[i].time_added + ',\n';
-              }
-              console.log('i: ' + i);
-            }*/
+            //get the amount of total files
+            this.mediaProvider.getAllMediaFiles().subscribe(response4 => {
+              if (response4 !== undefined){
+                this.query=response4;
+                this.filecount=this.query.file_count.total;
+            }else{
+              console.log(undefined);
+            }
+            });
           } else if (response2 === null) {
             console.log('null');
           } else {
@@ -71,28 +87,56 @@ export class HomePage {
   loggingout(){
 
     localStorage.removeItem('token');
-    this.navCtrl.push(LoginPage);
+    this.navCtrl.setRoot(LoginPage);
   }
 
   toUppload(){
     this.navCtrl.push(UploadPage);
   }
 
+  /*
+    Function to view previous set of photos (set size = photosPerViiew)
+   */
   viewNextPhotos() {
     this.startingPoint += this.photosPerView;
+    this.lastOfPage = this.startingPoint+this.photosPerView-1;
+    if(this.lastOfPage>this.filecount){
+      this.lastOfPage=this.filecount;
+    }
+    this.getMediaFiles();
+  }
+  /*
+    Function to view next set of photos (set size = photosPerView)
+   */
+  viewPreviousPhotos() {
+    if(this.startingPoint-this.photosPerView >= 0){
+      this.startingPoint -= this.photosPerView;
+      this.lastOfPage = this.startingPoint+this.photosPerView-1;
+      this.getMediaFiles();
+    }
+  }
+
+  goToFirstSet(){
+    this.startingPoint = 0;
+    this.lastOfPage = this.startingPoint+this.photosPerView-1;
+    this.getMediaFiles();
+  }
+
+  goToLastSet(){
+    this.startingPoint = Math.floor(this.filecount/this.photosPerView)*this.photosPerView;
+    this.lastOfPage = this.startingPoint+this.photosPerView-1;
+    if(this.lastOfPage>this.filecount){
+      this.lastOfPage = this.filecount;
+    }
+    this.getMediaFiles();
+  }
+
+  getMediaFiles(){
     this.mediaProvider.getNewMediaFiles(this.startingPoint,this.photosPerView).subscribe(response3 => {
       this.imagefiles = response3;
     });
   }
-
-  viewPreviousPhotos() {
-    if(this.startingPoint-this.photosPerView >= 0){
-      this.startingPoint -= this.photosPerView;
-      this.mediaProvider.getNewMediaFiles(this.startingPoint,this.photosPerView).subscribe( response3 => {
-        this.imagefiles = response3;
-      });
-    }
-  }
 }
+
 
 
